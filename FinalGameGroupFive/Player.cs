@@ -125,12 +125,7 @@ namespace FinalGameGroupFive
             {
                 position.X -= SPEED;
                 state = PlayerState.WalkingLeft;
-            } else
-            {
-                state = PlayerState.Idle;
-            }
-
-            if (ks.IsKeyDown(Keys.W))
+            } else if (ks.IsKeyDown(Keys.W))
             {
                 state = PlayerState.WalkingUp;
                 position.Y -= SPEED;
