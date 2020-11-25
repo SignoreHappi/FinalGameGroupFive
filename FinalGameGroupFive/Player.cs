@@ -65,20 +65,37 @@ namespace FinalGameGroupFive
 
 
             sourceRectangles.Add(PlayerState.Idle, new List<Rectangle>());
+            sourceRectangles[PlayerState.Idle].Add(new Rectangle(0, 0, WIDTH, HEIGHT));
             sourceRectangles.Add(PlayerState.WalkingUp, new List<Rectangle>());
-            sourceRectangles.Add(PlayerState.WalkingDown, new List<Rectangle>());
-            sourceRectangles.Add(PlayerState.WalkingLeft, new List<Rectangle>());
-            sourceRectangles.Add(PlayerState.WalkingRight, new List<Rectangle>());
-
-            foreach (PlayerState state in Enum.GetValues(typeof(PlayerState)))
+            for (int j = 0; j < frames; j++)
             {
-                for (int j = 0; j < frames; j++)
-                {
-                    Rectangle rect = new Rectangle(j * WIDTH, 0, WIDTH, HEIGHT);
-                    sourceRectangles[state].Add(rect);
-                }
+                Rectangle rect = new Rectangle(j * WIDTH, 0, WIDTH, HEIGHT);
+                sourceRectangles[PlayerState.WalkingUp].Add(rect);
             }
 
+
+            sourceRectangles.Add(PlayerState.WalkingDown, new List<Rectangle>());
+            for (int j = 0; j < frames; j++)
+            {
+                Rectangle rect = new Rectangle(j * WIDTH, 0, WIDTH, HEIGHT);
+                sourceRectangles[PlayerState.WalkingDown].Add(rect);
+            }
+
+
+            sourceRectangles.Add(PlayerState.WalkingLeft, new List<Rectangle>());
+            for (int j = 0; j < frames; j++)
+            {
+                Rectangle rect = new Rectangle(j * WIDTH, 0, WIDTH, HEIGHT);
+                sourceRectangles[PlayerState.WalkingLeft].Add(rect);
+            }
+
+
+            sourceRectangles.Add(PlayerState.WalkingRight, new List<Rectangle>());
+            for (int j = 0; j < frames; j++)
+            {
+                Rectangle rect = new Rectangle(j * WIDTH, 0, WIDTH, HEIGHT);
+                sourceRectangles[PlayerState.WalkingRight].Add(rect);
+            }
 
             position = new Vector2(Game.GraphicsDevice.Viewport.Width / 2 - WIDTH / 2,
                                    Game.GraphicsDevice.Viewport.Height / 2 - HEIGHT / 2);
@@ -102,12 +119,15 @@ namespace FinalGameGroupFive
             KeyboardState ks = Keyboard.GetState();
             if (ks.IsKeyDown(Keys.D))
             {
-                state = PlayerState.WalkingRight;
                 position.X += SPEED;
+                state = PlayerState.WalkingRight;
             } else if (ks.IsKeyDown(Keys.A))
             {
-                state = PlayerState.WalkingLeft;
                 position.X -= SPEED;
+                state = PlayerState.WalkingLeft;
+            } else
+            {
+                state = PlayerState.Idle;
             }
 
             if (ks.IsKeyDown(Keys.W))
@@ -118,8 +138,10 @@ namespace FinalGameGroupFive
             {
                 state = PlayerState.WalkingDown;
                 position.Y += SPEED;
+            } else
+            {
+                state = PlayerState.Idle;
             }
-            state = PlayerState.Idle;
 
             frameTimer += gameTime.ElapsedGameTime.TotalSeconds;
             if (frameTimer >= FRAME_DURATION)
