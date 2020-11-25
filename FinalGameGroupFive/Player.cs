@@ -174,8 +174,8 @@ namespace FinalGameGroupFive
                 currentFrame = 0;
             }
 
-            position.X = MathHelper.Clamp(position.X, 0, GraphicsDevice.Viewport.Width - textures[state].Width);
-            position.Y = MathHelper.Clamp(position.Y, 0, GraphicsDevice.Viewport.Height - textures[state].Height);
+            position.X = MathHelper.Clamp(position.X, 0, GraphicsDevice.Viewport.Width - WIDTH);
+            position.Y = MathHelper.Clamp(position.Y, 0, GraphicsDevice.Viewport.Height - HEIGHT);
 
             base.Update(gameTime);
         }
