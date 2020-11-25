@@ -117,7 +117,28 @@ namespace FinalGameGroupFive
         public override void Update(GameTime gameTime)
         {
             KeyboardState ks = Keyboard.GetState();
-            if (ks.IsKeyDown(Keys.D))
+            if (ks.IsKeyDown(Keys.W) && ks.IsKeyDown(Keys.A))
+            {
+                state = PlayerState.WalkingUp;
+                position.X -= SPEED;
+                position.Y -= SPEED;
+            } else if (ks.IsKeyDown(Keys.W) && ks.IsKeyDown(Keys.D))
+            {
+                state = PlayerState.WalkingUp;
+                position.X += SPEED;
+                position.Y -= SPEED;
+            } else if (ks.IsKeyDown(Keys.S) && ks.IsKeyDown(Keys.A))
+            {
+                state = PlayerState.WalkingDown;
+                position.X -= SPEED;
+                position.Y += SPEED;
+            } else if (ks.IsKeyDown(Keys.S) && ks.IsKeyDown(Keys.D))
+            {
+                state = PlayerState.WalkingDown;
+                position.X += SPEED;
+                position.Y += SPEED;
+            }
+            else if (ks.IsKeyDown(Keys.D))
             {
                 position.X += SPEED;
                 state = PlayerState.WalkingRight;
@@ -125,7 +146,8 @@ namespace FinalGameGroupFive
             {
                 position.X -= SPEED;
                 state = PlayerState.WalkingLeft;
-            } else if (ks.IsKeyDown(Keys.W))
+            } else 
+            if (ks.IsKeyDown(Keys.W))
             {
                 state = PlayerState.WalkingUp;
                 position.Y -= SPEED;
@@ -133,7 +155,10 @@ namespace FinalGameGroupFive
             {
                 state = PlayerState.WalkingDown;
                 position.Y += SPEED;
-            } else
+            } 
+
+            
+            else
             {
                 state = PlayerState.Idle;
             }
@@ -148,6 +173,10 @@ namespace FinalGameGroupFive
             {
                 currentFrame = 0;
             }
+
+            position.X = MathHelper.Clamp(position.X, 0, GraphicsDevice.Viewport.Width - textures[state].Width);
+            position.Y = MathHelper.Clamp(position.Y, 0, GraphicsDevice.Viewport.Height - textures[state].Height);
+
             base.Update(gameTime);
         }
 
