@@ -32,6 +32,7 @@ namespace FinalGameGroupFive
         {
             // TODO: Add your initialization logic here
 
+            Components.Add(new Player(this));
             base.Initialize();
         }
 
@@ -44,6 +45,7 @@ namespace FinalGameGroupFive
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            Services.AddService<SpriteBatch>(spriteBatch);
             // TODO: use this.Content to load your game content here
         }
 
