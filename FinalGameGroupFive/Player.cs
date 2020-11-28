@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace FinalGameGroupFive
 {
+    [Flags]
     public enum PlayerState
     {
         Idle,
@@ -18,12 +19,10 @@ namespace FinalGameGroupFive
         WalkingRight
     }
 
-
     class Player : DrawableGameComponent
     {
         #region Variables
 
-        //Constanst
         const double FRAME_DURATION = 0.1;
         const int SPEED = 3;
         public const int WIDTH = 32;
@@ -31,32 +30,14 @@ namespace FinalGameGroupFive
 
         Vector2 position;
 
-        //Dictionaries
         Dictionary<PlayerState, Texture2D> textures;
         Dictionary<PlayerState, List<Rectangle>> sourceRectangles;
 
-        //Player
         PlayerState state = PlayerState.Idle;
-        Color[] playerData;
-        public Rectangle PlayerHitbox
-        {
-            get
-            {
-                Rectangle rect = textures[PlayerState.Idle].Bounds;
-                rect.Location = position.ToPoint();
-                return rect;
-            }
-        }
 
-        //Frames
         int currentFrame;
         int frames;
         double frameTimer;
-
-
-
-
-        Color backgroundColor = Color.CornflowerBlue;
         #endregion
 
         #region Constructor
@@ -73,17 +54,15 @@ namespace FinalGameGroupFive
         }
         #endregion
 
-
-
         protected override void LoadContent()
         {
-            textures.Add(PlayerState.Idle, Game.Content.Load<Texture2D>(@"assets\player\Player_Idle"));
-            textures.Add(PlayerState.WalkingUp, Game.Content.Load<Texture2D>(@"assets\player\Player_Walk_Up"));
-            textures.Add(PlayerState.WalkingDown, Game.Content.Load<Texture2D>(@"assets\player\Player_Walk_Down"));
-            textures.Add(PlayerState.WalkingLeft, Game.Content.Load<Texture2D>(@"assets\player\Player_Walk_Left"));
-            textures.Add(PlayerState.WalkingRight, Game.Content.Load<Texture2D>(@"assets\player\Player_Walk_Right"));
+            textures.Add(PlayerState.Idle, Game.Content.Load<Texture2D>("Player_Idle"));
+            textures.Add(PlayerState.WalkingUp, Game.Content.Load<Texture2D>("Player_Walk_Up"));
+            textures.Add(PlayerState.WalkingDown, Game.Content.Load<Texture2D>("Player_Walk_Down"));
+            textures.Add(PlayerState.WalkingLeft, Game.Content.Load<Texture2D>("Player_Walk_Left"));
+            textures.Add(PlayerState.WalkingRight, Game.Content.Load<Texture2D>("Player_Walk_Right"));
 
-            playerData = new Color[textures[PlayerState.Idle].Width * textures[PlayerState.Idle].Height];
+
 
             sourceRectangles.Add(PlayerState.Idle, new List<Rectangle>());
             sourceRectangles[PlayerState.Idle].Add(new Rectangle(0, 0, WIDTH, HEIGHT));
@@ -125,7 +104,6 @@ namespace FinalGameGroupFive
 
         public override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(backgroundColor);
             SpriteBatch sb = Game.Services.GetService<SpriteBatch>();
             sb.Begin();
             sb.Draw(textures[state], position, sourceRectangles[state][currentFrame], Color.White,
@@ -136,32 +114,8 @@ namespace FinalGameGroupFive
             base.Draw(gameTime);
         }
 
-        static bool PerPixelCollision(Rectangle rect1, Color[] data1, Rectangle rect2, Color[] data2)
-        {
-            int top = MathHelper.Max(rect1.Top, rect2.Top);
-            int bottom = MathHelper.Min(rect1.Bottom, rect2.Bottom);
-            int left = MathHelper.Max(rect1.Left, rect2.Left);
-            int right = MathHelper.Min(rect1.Right, rect2.Right);
-            for (int row = top; row < bottom; row++)
-            {
-                for (int col = left; col < right; col++)
-                {
-                    Color color1 = data1[(col - rect1.Left) + (row - rect1.Top) * rect1.Width];
-                    Color color2 = data2[(col - rect2.Left) + (row - rect2.Top) * rect2.Width];
-                    if (color1.A != 0 && color2.A != 0)
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-
-
         public override void Update(GameTime gameTime)
         {
-            backgroundColor = Color.CornflowerBlue;
-
             KeyboardState ks = Keyboard.GetState();
             if (ks.IsKeyDown(Keys.W) && ks.IsKeyDown(Keys.A))
             {
@@ -183,7 +137,8 @@ namespace FinalGameGroupFive
                 state = PlayerState.WalkingDown;
                 position.X += SPEED;
                 position.Y += SPEED;
-            } else if (ks.IsKeyDown(Keys.D))
+            }
+            else if (ks.IsKeyDown(Keys.D))
             {
                 position.X += SPEED;
                 state = PlayerState.WalkingRight;
@@ -191,7 +146,7 @@ namespace FinalGameGroupFive
             {
                 position.X -= SPEED;
                 state = PlayerState.WalkingLeft;
-            } else
+            } else 
             if (ks.IsKeyDown(Keys.W))
             {
                 state = PlayerState.WalkingUp;
@@ -200,7 +155,10 @@ namespace FinalGameGroupFive
             {
                 state = PlayerState.WalkingDown;
                 position.Y += SPEED;
-            } else
+            } 
+
+            
+            else
             {
                 state = PlayerState.Idle;
             }
@@ -215,20 +173,6 @@ namespace FinalGameGroupFive
             {
                 currentFrame = 0;
             }
-            if (!PlayerHitbox.Intersects(TestCollision.ItemHitbox))
-            {
-                Score.hit = false;
-                //if (!PerPixelCollision(PlayerHitbox, playerData,
-                //    TestCollision.ItemHitbox, TestCollision.testData))
-                //{
-                
-            } else
-            {
-                Score.hit = true;
-                backgroundColor = Color.SlateGray;
-
-            }
-
 
             position.X = MathHelper.Clamp(position.X, 0, GraphicsDevice.Viewport.Width - textures[state].Width);
             position.Y = MathHelper.Clamp(position.Y, 0, GraphicsDevice.Viewport.Height - textures[state].Height);
