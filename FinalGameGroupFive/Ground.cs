@@ -32,11 +32,11 @@ namespace FinalGameGroupFive
 
         protected override void LoadContent()
         {
-            for(int i = 0; i < frames; i++)
-            {
-                Rectangle rect = new Rectangle(i * WIDTH, 0, WIDTH, HEIGHT);
-                sourceRectangles[PlayerState.WalkingUp].Add(rect);
-            }
+            //for(int i = 0; i < frames; i++)
+            //{
+            //    Rectangle rect = new Rectangle(i * WIDTH, 0, WIDTH, HEIGHT);
+            //    sourceRectangles[PlayerState.WalkingUp].Add(rect);
+            //}
             base.LoadContent();
         }
     }
