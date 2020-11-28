@@ -33,6 +33,8 @@ namespace FinalGameGroupFive
             // TODO: Add your initialization logic here
 
             Components.Add(new Player(this));
+            Components.Add(new TestCollision(this));
+            Components.Add(new Score(this));
             base.Initialize();
         }
 
