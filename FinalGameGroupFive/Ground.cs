@@ -25,18 +25,20 @@ namespace FinalGameGroupFive
 
         Dictionary<Dirts, Texture2D> textures;
         Dictionary<Dirts, List<Rectangle>> sourceRectangles;
+        int frames;
         public Ground(Game game) : base(game)
         {
             textures.Add(Dirts.YellowDirt1, Game.Content.Load<Texture2D>("Ground"));
+            
         }
 
         protected override void LoadContent()
         {
-            //for(int i = 0; i < frames; i++)
-            //{
-            //    Rectangle rect = new Rectangle(i * WIDTH, 0, WIDTH, HEIGHT);
-            //    sourceRectangles[PlayerState.WalkingUp].Add(rect);
-            //}
+            for(int i = 0; i < frames; i++)
+            {
+                Rectangle rect = new Rectangle(i * WIDTH, 0, WIDTH, HEIGHT);
+                //sourceRectangles[PlayerState.WalkingUp].Add(rect);
+            }
             base.LoadContent();
         }
     }
