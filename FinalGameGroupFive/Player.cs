@@ -56,11 +56,11 @@ namespace FinalGameGroupFive
 
         protected override void LoadContent()
         {
-            textures.Add(PlayerState.Idle, Game.Content.Load<Texture2D>("Player_Idle"));
-            textures.Add(PlayerState.WalkingUp, Game.Content.Load<Texture2D>("Player_Walk_Up"));
-            textures.Add(PlayerState.WalkingDown, Game.Content.Load<Texture2D>("Player_Walk_Down"));
-            textures.Add(PlayerState.WalkingLeft, Game.Content.Load<Texture2D>("Player_Walk_Left"));
-            textures.Add(PlayerState.WalkingRight, Game.Content.Load<Texture2D>("Player_Walk_Right"));
+            textures.Add(PlayerState.Idle, Game.Content.Load<Texture2D>(@"assets\player\player_idle"));
+            textures.Add(PlayerState.WalkingUp, Game.Content.Load<Texture2D>(@"assets\player\player_walking_up"));
+            textures.Add(PlayerState.WalkingDown, Game.Content.Load<Texture2D>(@"assets\player\player_walking_down"));
+            textures.Add(PlayerState.WalkingLeft, Game.Content.Load<Texture2D>(@"assets\player\player_walking_left"));
+            textures.Add(PlayerState.WalkingRight, Game.Content.Load<Texture2D>(@"assets\player\player_walking_right"));
 
 
 

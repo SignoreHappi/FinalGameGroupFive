@@ -55,17 +55,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Ground.png" />
-    <Content Include="Content\Player_Idle.png" />
-    <Content Include="Content\Player_Walk_Down.png" />
-    <Content Include="Content\Player_Walk_Left.png" />
-    <Content Include="Content\Player_Walk_Right.png" />
-    <Content Include="Content\Player_Walk_Up.png" />
+    <Content Include="Content\assets\floor\ground.png" />
+    <Content Include="Content\assets\player\player_idle.png" />
+    <Content Include="Content\assets\player\player_walking_down.png" />
+    <Content Include="Content\assets\player\player_walking_left.png" />
+    <Content Include="Content\assets\player\player_walking_right.png" />
+    <Content Include="Content\assets\player\player_walking_up.png" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content\assets\buildings\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

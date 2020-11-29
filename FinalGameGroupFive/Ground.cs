@@ -28,8 +28,7 @@ namespace FinalGameGroupFive
         int frames;
         public Ground(Game game) : base(game)
         {
-            textures.Add(Dirts.YellowDirt1, Game.Content.Load<Texture2D>("Ground"));
-            
+            textures = new Dictionary<Dirts, Texture2D>();
         }
 
         protected override void LoadContent()
@@ -39,6 +38,7 @@ namespace FinalGameGroupFive
                 Rectangle rect = new Rectangle(i * WIDTH, 0, WIDTH, HEIGHT);
                 //sourceRectangles[PlayerState.WalkingUp].Add(rect);
             }
+            textures.Add(Dirts.YellowDirt1, Game.Content.Load<Texture2D>(@"assets\floor\ground"));
             base.LoadContent();
         }
     }
