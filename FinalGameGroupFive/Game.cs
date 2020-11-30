@@ -17,9 +17,15 @@ namespace FinalGameGroupFive
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            //This is my comment
 
-            //Hello Giovane
+            //Windowed borderless
+            graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            
+            //FullScreen
+            //graphics.IsFullScreen = true;
+
+            graphics.ApplyChanges();
         }
 
         /// <summary>
@@ -33,6 +39,7 @@ namespace FinalGameGroupFive
             // TODO: Add your initialization logic here
             Components.Add(new Ground(this));
             Components.Add(new Player(this));
+            Components.Add(new BuildingManager(this));
             base.Initialize();
         }
 
