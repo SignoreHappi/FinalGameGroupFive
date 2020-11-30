@@ -13,6 +13,9 @@ namespace FinalGameGroupFive
     public enum PlayerState
     {
         Idle,
+        Idle_Up,
+        Idle_Left,
+        Idle_Right,
         WalkingUp,
         WalkingDown,
         WalkingLeft,
@@ -34,6 +37,7 @@ namespace FinalGameGroupFive
         Dictionary<PlayerState, List<Rectangle>> sourceRectangles;
 
         PlayerState state = PlayerState.Idle;
+        PlayerState previousState = PlayerState.Idle;
 
         int currentFrame;
         int frames;
@@ -71,6 +75,10 @@ namespace FinalGameGroupFive
         protected override void LoadContent()
         {
             textures.Add(PlayerState.Idle, Game.Content.Load<Texture2D>(@"assets\player\player_idle"));
+            textures.Add(PlayerState.Idle_Up, Game.Content.Load<Texture2D>(@"assets\player\player_idle_up"));
+            textures.Add(PlayerState.Idle_Left, Game.Content.Load<Texture2D>(@"assets\player\player_idle_left"));
+            textures.Add(PlayerState.Idle_Right, Game.Content.Load<Texture2D>(@"assets\player\player_idle_right"));
+
             textures.Add(PlayerState.WalkingUp, Game.Content.Load<Texture2D>(@"assets\player\player_walking_up"));
             textures.Add(PlayerState.WalkingDown, Game.Content.Load<Texture2D>(@"assets\player\player_walking_down"));
             textures.Add(PlayerState.WalkingLeft, Game.Content.Load<Texture2D>(@"assets\player\player_walking_left"));
@@ -125,7 +133,8 @@ namespace FinalGameGroupFive
 
         private void PlayerKeyboardController()
         {
-            state = PlayerState.Idle;
+
+
             KeyboardState ks = Keyboard.GetState();
             if (ks.IsKeyDown(Keys.W) && ks.IsKeyDown(Keys.A))
             {
@@ -164,6 +173,22 @@ namespace FinalGameGroupFive
             {
                 state = PlayerState.WalkingDown;
                 position.Y += SPEED;
+            }
+
+            previousState = state;
+
+            if (previousState == PlayerState.Idle)
+            {
+                state = PlayerState.Idle;
+            } else if (previousState == PlayerState.Idle_Up)
+            {
+                state = PlayerState.Idle_Up;
+            } else if (previousState == PlayerState.Idle_Left)
+            {
+                state = PlayerState.Idle_Left;
+            } else if (previousState == PlayerState.Idle_Right)
+            {
+                state = PlayerState.Idle_Right;
             }
         }
 
