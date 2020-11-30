@@ -37,7 +37,7 @@ namespace FinalGameGroupFive
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            Components.Add(new Ground(this));
+            //Components.Add(new Ground(this));
             Components.Add(new Player(this));
             Components.Add(new BuildingManager(this));
             base.Initialize();
