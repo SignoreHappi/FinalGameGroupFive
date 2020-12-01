@@ -85,12 +85,18 @@ namespace FinalGameGroupFive
             textures.Add(PlayerState.WalkingRight, Game.Content.Load<Texture2D>(@"assets\player\player_walking_right"));
 
 
-
+            //Creates just one frame per animation, to make sure that it won't be blinking
             sourceRectangles.Add(PlayerState.Idle, new List<Rectangle>());
             sourceRectangles[PlayerState.Idle].Add(new Rectangle(0, 0, WIDTH, HEIGHT));
+            sourceRectangles.Add(PlayerState.Idle_Up, new List<Rectangle>());
+            sourceRectangles[PlayerState.Idle_Up].Add(new Rectangle(0, 0, WIDTH, HEIGHT)); 
+            sourceRectangles.Add(PlayerState.Idle_Left, new List<Rectangle>());
+            sourceRectangles[PlayerState.Idle_Left].Add(new Rectangle(0, 0, WIDTH, HEIGHT));
+            sourceRectangles.Add(PlayerState.Idle_Right, new List<Rectangle>());
+            sourceRectangles[PlayerState.Idle_Right].Add(new Rectangle(0, 0, WIDTH, HEIGHT));
 
-
-            for (int i = 1; i < (int)Enum.GetValues(typeof(PlayerState)).Length; i++)
+            //Creates 3 frames per sprite, to give it the animation
+            for (int i = 4; i < (int)Enum.GetValues(typeof(PlayerState)).Length; i++)
             {
                 string state = Enum.GetName(typeof(PlayerState), i);
                 PlayerState playerState = (PlayerState)Enum.Parse(typeof(PlayerState), state);
@@ -133,7 +139,21 @@ namespace FinalGameGroupFive
 
         private void PlayerKeyboardController()
         {
+            previousState = state;
 
+            if (previousState == PlayerState.WalkingDown)
+            {
+                state = PlayerState.Idle;
+            } else if (previousState == PlayerState.WalkingUp)
+            {
+                state = PlayerState.Idle_Up;
+            } else if (previousState == PlayerState.WalkingLeft)
+            {
+                state = PlayerState.Idle_Left;
+            } else if (previousState == PlayerState.WalkingRight)
+            {
+                state = PlayerState.Idle_Right;
+            }
 
             KeyboardState ks = Keyboard.GetState();
             if (ks.IsKeyDown(Keys.W) && ks.IsKeyDown(Keys.A))
@@ -173,38 +193,34 @@ namespace FinalGameGroupFive
             {
                 state = PlayerState.WalkingDown;
                 position.Y += SPEED;
+            } else
+            {
+
             }
 
-            previousState = state;
 
-            if (previousState == PlayerState.Idle)
-            {
-                state = PlayerState.Idle;
-            } else if (previousState == PlayerState.Idle_Up)
-            {
-                state = PlayerState.Idle_Up;
-            } else if (previousState == PlayerState.Idle_Left)
-            {
-                state = PlayerState.Idle_Left;
-            } else if (previousState == PlayerState.Idle_Right)
-            {
-                state = PlayerState.Idle_Right;
-            }
         }
 
 
 
         private void UpdatePlayerFrame(GameTime gameTime)
         {
-            frameTimer += gameTime.ElapsedGameTime.TotalSeconds;
-            if (frameTimer >= FRAME_DURATION)
+            if (previousState != PlayerState.Idle ||
+                previousState != PlayerState.Idle_Left ||
+                previousState != PlayerState.Idle_Right ||
+                previousState != PlayerState.Idle_Up)
             {
-                frameTimer = 0;
-                currentFrame++;
-            }
-            if (currentFrame >= sourceRectangles[state].Count)
-            {
-                currentFrame = 0;
+
+                frameTimer += gameTime.ElapsedGameTime.TotalSeconds;
+                if (frameTimer >= FRAME_DURATION)
+                {
+                    frameTimer = 0;
+                    currentFrame++;
+                }
+                if (currentFrame >= sourceRectangles[state].Count)
+                {
+                    currentFrame = 0;
+                }
             }
         }
     }
