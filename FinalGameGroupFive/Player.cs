@@ -27,7 +27,7 @@ namespace FinalGameGroupFive
         #region Variables
 
         const double FRAME_DURATION = 0.1;
-        const int SPEED = 3;
+        const int SPEED = 5;
         public const int WIDTH = 32;
         public const int HEIGHT = 32;
 
@@ -35,8 +35,8 @@ namespace FinalGameGroupFive
 
         Dictionary<PlayerState, Texture2D> textures;
         Dictionary<PlayerState, List<Rectangle>> sourceRectangles;
-
-        PlayerState state = PlayerState.Idle;
+        
+        PlayerState state;
         PlayerState previousState = PlayerState.Idle;
 
         int currentFrame;

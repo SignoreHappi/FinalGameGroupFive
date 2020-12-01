@@ -44,7 +44,6 @@ namespace FinalGameGroupFive
         public override void Update(GameTime gameTime)
         {
 
-            Building.PlayerCollided(new Player(parent));
             base.Update(gameTime);
         }
     }

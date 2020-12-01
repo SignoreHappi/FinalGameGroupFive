@@ -26,13 +26,13 @@ namespace FinalGameGroupFive
 
         BuildingColor buildingColor;
 
-        Vector2 position;
+        static Vector2 position;
 
         static Dictionary<BuildingColor, Texture2D> textures;
         Rectangle sourceRectangle;
 
-
-        public Rectangle BuildingCollisionBox
+        static Game game;
+        public static Rectangle BuildingCollisionBox
         {
             get
             {
@@ -43,7 +43,8 @@ namespace FinalGameGroupFive
         }
         public Building(Game game, Vector2 position, BuildingColor color) : base(game)
         {
-            this.position = position;
+            Building.game = game;
+            Building.position = position;
             this.buildingColor = color;
         }
 
@@ -62,6 +63,7 @@ namespace FinalGameGroupFive
             base.LoadContent();
         }
 
+
         public override void Draw(GameTime gameTime)
         {
             SpriteBatch sb = Game.Services.GetService<SpriteBatch>();
@@ -73,10 +75,10 @@ namespace FinalGameGroupFive
             base.Draw(gameTime);
         }
 
-        public static bool PlayerCollided(Player player)
+        public static bool PlayerCollided()
         {
             bool playerHasCollided = false;
-            //if(player.PlayerCollisionBox.Intersects())
+
 
 
             return playerHasCollided;
